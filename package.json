@@ -1,0 +1,50 @@
+{
+  "name": "bot-cleaner-saas",
+  "version": "1.0.0",
+  "description": "A modern SaaS application for bot detection and cleaning",
+  "private": true,
+  "workspaces": [
+    "apps/web"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev:web\" \"npm run dev:server\"",
+    "dev:web": "cd apps/web && npm run dev",
+    "dev:server": "cd apps/server && python -m uvicorn main:app --reload --host 0.0.0.0 --port 8000",
+    "build": "cd apps/web && npm run build",
+    "test": "npm run test:web && npm run test:server",
+    "test:web": "cd apps/web && npm run test:e2e",
+    "test:server": "cd apps/server && python run_pytest.py",
+    "test:web:ui": "cd apps/web && npm run test:e2e:ui",
+    "test:web:debug": "cd apps/web && npm run test:e2e:debug",
+    "lint": "npm run lint:web && npm run lint:server",
+    "lint:web": "cd apps/web && npm run lint",
+    "lint:server": "cd apps/server && python -m ruff check .",
+    "format": "npm run format:web && npm run format:server",
+    "format:web": "cd apps/web && npm run format",
+    "format:server": "cd apps/server && python -m black .",
+    "install-all": "npm install && cd apps/web && npm install",
+    "docker-up": "docker compose up --build",
+    "docker-down": "docker compose down",
+    "docker-logs": "docker compose logs -f",
+    "clean": "cd apps/web && rm -rf .next out dist && cd ../server && find . -type d -name __pycache__ -exec rm -rf {} +"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0",
+    "concurrently": "^8.2.2"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "keywords": [
+    "saas",
+    "bot-detection",
+    "nextjs",
+    "fastapi",
+    "typescript",
+    "python"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
+}

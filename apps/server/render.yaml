@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: byebyebots-api
+    env: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    plan: starter
+    region: oregon
+    branch: main
+    buildCommand: ""
+    startCommand: "uvicorn main:app --host 0.0.0.0 --port $PORT --workers 4"
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: PORT
+        value: 8000
+    autoDeploy: true
+    pullRequestPreviewsEnabled: false

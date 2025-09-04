@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: ./apps/web
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./apps/web:/app
+      - /app/node_modules
+      - /app/.next
+    environment:
+      - NODE_ENV=development
+      - NEXT_TELEMETRY_DISABLED=1
+    depends_on:
+      - server
+    networks:
+      - bot-cleaner-network
+
+  server:
+    build:
+      context: ./apps/server
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./apps/server:/app
+    environment:
+      - ENVIRONMENT=development
+      - PYTHONPATH=/app
+    networks:
+      - bot-cleaner-network
+
+networks:
+  bot-cleaner-network:
+    driver: bridge
+
