@@ -7,16 +7,6 @@
       "use": "@vercel/next"
     }
   ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "https://api.byebyebots.io/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/$1"
-    }
-  ],
   "env": {
     "NEXT_PUBLIC_BACKEND_URL": "https://api.byebyebots.io",
     "NEXT_PUBLIC_FRONTEND_URL": "https://byebyebots.io"
